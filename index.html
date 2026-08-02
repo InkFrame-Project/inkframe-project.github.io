@@ -44,6 +44,7 @@
       }
 
       async function handleSignUp(){
+        if(!_supabase) return alert("DB Client not loaded!");
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const status = document.getElementById('status');
@@ -59,6 +60,7 @@
       }
 
       async function handleLogin(){
+        if(!_supabase) return alert("DB Client not loaded!");
           const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const status = document.getElementById('status');
