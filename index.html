@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>InkFrame</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #121212; color: #fff; }
+      .card { background: #1e1e1e; padding: 2rem; border-raduis: 8px; width: 300px; text-align: center; }
+      input { width: 100%; padding: 0.5rem; margin: 0.5rem 0; box-sizing: border-box; }
+      button { width: 100%; padding: 0.5rem; margin-top: 0.5rem ; cursor: pointer; background: #007aac; color: white; border: none; border-radius: 4px; }
+      button.secondary { background: #444; }
+    </style>
+  </head>
+  <body>
+    <a href=""><button>Install</button></a>
+    <div class="card">
+      <h2>Launch</h2>
+
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+  
+      <button onclick="handleLogin()">Log In & Launch</button>
+      <button class="secondary" onclick="handleSignUp()">Sign Up</button>
+
+      <p id="status"></p>
+    </div>
+
+    <script>
+      const supabaseurl = "https://rnnyseaxnkktkydqbhus.supabase.co"
+
+      //its public anyway. baby poo shit baby poo shit baby poo shit baby poo shit baby poo shit baby poo shit baby poo shit baby poo shit baby poo shit no veggies
+      // maybe add cloudflare idfk or care
+      const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJubnlzZWF4bmtrdGt5ZHFiaHVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzAxNjcsImV4cCI6MjEwMTI0NjE2N30.1gaXb_czMZC698x3QJncYYYG4aZNWh5R1VPPsoibd-A"
+
+      const supabase = supabase.createClient(supabaseurl, supabaseAnonKey);
+
+      async function handleSignUp(){
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const status = document.getElementById('status');
+
+        status.innerText = "Signing up...";
+        const { data, err } = await supabase.auth.signUp({email, password});
+
+        if(error){
+          status.innerText = `ERROR: ${error.message}`;
+        } else{
+          status.innerText = "Account created! Login pls";
+        }
+      }
+
+      async function handleLogin(){
+          const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const status = document.getElementById('status');
+
+        status.innerText = "Logging in...";
+        const { data, err } = await supabase.auth.signInWithPassword({email, password});
+
+        if(error){
+          status.innerText = `ERROR: ${error.message}`;
+        } else{
+          status.innerText = "Logged in. Please make sure you have the client installed :)";
+
+          const uId = data.user.id;
+
+          window.location.href = `inkframe://1/test/join/${uId}`;
+        }
+      }
+    </script>
+  </body>
+</html>
