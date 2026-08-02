@@ -36,8 +36,11 @@
       let _supabase;
 
       window.addEventListener('DOMContentLoaded', () =>{
-        if(window.supabase){
-          _supabase = window.supabase.createClient(supabaseurl, supabaseAnonKey)
+        if(window.supabase && window.supabase.createClient){
+          _supabase = window.supabase.createClient(supabaseurl, supabaseAnonKey);
+        }
+        else if(typeof supabase !== 'undefined' && supabase.createClient){
+          _supabase = supabase.createClient(supabaseurl, supabaseAnonKey);
         }else{
           console.error("Supabase CDN Failed to load");
         }
@@ -52,7 +55,7 @@
         status.innerText = "Signing up...";
         const { data, err } = await supabase.auth.signUp({email, password});
 
-        if(error){
+        if(err){
           status.innerText = `ERROR: ${error.message}`;
         } else{
           status.innerText = "Account created! Login pls";
@@ -68,7 +71,7 @@
         status.innerText = "Logging in...";
         const { data, err } = await supabase.auth.signInWithPassword({email, password});
 
-        if(error){
+        if(err){
           status.innerText = `ERROR: ${error.message}`;
         } else{
           status.innerText = "Logged in. Please make sure you have the client installed :)";
