@@ -33,7 +33,7 @@
       // maybe add cloudflare idfk or care
       const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJubnlzZWF4bmtrdGt5ZHFiaHVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU2NzAxNjcsImV4cCI6MjEwMTI0NjE2N30.1gaXb_czMZC698x3QJncYYYG4aZNWh5R1VPPsoibd-A"
 
-      const supabase = supabase.createClient(supabaseurl, supabaseAnonKey);
+      const _supabase = supabase.createClient(supabaseurl, supabaseAnonKey);
 
       async function handleSignUp(){
         const email = document.getElementById('email').value;
